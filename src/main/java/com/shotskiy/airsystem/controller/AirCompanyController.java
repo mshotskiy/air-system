@@ -1,8 +1,8 @@
 package com.shotskiy.airsystem.controller;
 
-import com.shotskiy.airsystem.model.FlightStatus;
 import com.shotskiy.airsystem.entity.AirCompany;
 import com.shotskiy.airsystem.entity.Flight;
+import com.shotskiy.airsystem.model.FlightStatus;
 import com.shotskiy.airsystem.service.AirCompanyService;
 import com.shotskiy.airsystem.util.AirCompanyModelAssembler;
 import com.shotskiy.airsystem.util.FlightModelAssembler;

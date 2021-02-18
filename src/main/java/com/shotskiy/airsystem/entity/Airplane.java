@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -42,7 +42,7 @@ public class Airplane {
     private String type;
 
     @Column(name = "created_at")
-    private Date createdAt;
+    private LocalDate createdAt;
 
     @OneToMany(mappedBy = "airPlane", fetch = FetchType.LAZY)
     @JsonIgnoreProperties("airPlane")

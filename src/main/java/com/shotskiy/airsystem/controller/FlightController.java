@@ -2,14 +2,17 @@ package com.shotskiy.airsystem.controller;
 
 
 import com.shotskiy.airsystem.entity.Flight;
+import com.shotskiy.airsystem.model.FlightDateOnly;
 import com.shotskiy.airsystem.service.FlightService;
 import com.shotskiy.airsystem.util.FlightModelAssembler;
+import org.springframework.boot.context.properties.bind.DefaultValue;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.IanaLinkRelations;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -78,24 +81,45 @@ public class FlightController {
         return ResponseEntity.noContent().build();
     }
 
-    @PutMapping("/{id}/active")
-    public ResponseEntity<?> active(@PathVariable Long id) {
-        return null;
+    @PatchMapping("/{id}/delayed")
+    public ResponseEntity<?> delayed(@PathVariable Long id, @RequestBody FlightDateOnly flightDate) {
+        EntityModel<Flight> entityModel = modelAssembler
+                .toModel(flightService.setDelayedStatus(id, flightDate));
+
+        return ResponseEntity
+                .created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri())
+                .body(entityModel);
     }
 
-    @PutMapping("/{id}/complete")
-    public ResponseEntity<?> complete(@PathVariable Long id) {
-        return null;
+    @PatchMapping("/{id}/active")
+    public ResponseEntity<?> active(@PathVariable Long id, @RequestBody FlightDateOnly flightDate) {
+        EntityModel<Flight> entityModel = modelAssembler
+                .toModel(flightService.setActiveStatus(id, flightDate));
+
+        return ResponseEntity
+                .created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri())
+                .body(entityModel);
     }
 
-    @PutMapping("/{id}/delayed")
-    public ResponseEntity<?> delayed(@PathVariable Long id) {
-        return null;
+    @PatchMapping("/{id}/completed")
+    public ResponseEntity<?> complete(@PathVariable Long id, @RequestBody FlightDateOnly flightDate) {
+        EntityModel<Flight> entityModel = modelAssembler
+                .toModel(flightService.setCompletedStatus(id, flightDate));
+
+        return ResponseEntity
+                .created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri())
+                .body(entityModel);
     }
 
-    @PutMapping("/{id}/pending")
-    public ResponseEntity<?> pending(@PathVariable Long id) {
-        return null;
+    @GetMapping("/late")
+    public CollectionModel<EntityModel<Flight>> findLateFlights(){
+        List<EntityModel<Flight>> listModelFlights = flightService.getCompletedLateFlights().stream()
+                .map(modelAssembler::toModel)
+                .collect(Collectors.toList());
+
+        return CollectionModel.of(listModelFlights,
+                linkTo(methodOn(FlightController.class).findLateFlights()).withSelfRel());
     }
+
 
 }

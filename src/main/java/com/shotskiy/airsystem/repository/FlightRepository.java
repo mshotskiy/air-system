@@ -12,4 +12,7 @@ public interface FlightRepository extends JpaRepository<Flight, Long> {
 
     @Query("select f from Flight f where f.flightStatus = 'Active'")
     List<Flight> findAllActive();
+
+    @Query("select f from Flight f where f.flightStatus = 'Completed'")
+    List<Flight> findAllCompleted();
 }

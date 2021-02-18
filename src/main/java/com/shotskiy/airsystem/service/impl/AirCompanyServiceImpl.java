@@ -1,9 +1,9 @@
 package com.shotskiy.airsystem.service.impl;
 
-import com.shotskiy.airsystem.entity.Flight;
-import com.shotskiy.airsystem.model.FlightStatus;
 import com.shotskiy.airsystem.entity.AirCompany;
-import com.shotskiy.airsystem.exception.ResourceNotFoundException;
+import com.shotskiy.airsystem.entity.Flight;
+import com.shotskiy.airsystem.exception.AirCompanyNotFoundException;
+import com.shotskiy.airsystem.model.FlightStatus;
 import com.shotskiy.airsystem.repository.AirCompanyRepository;
 import com.shotskiy.airsystem.service.AirCompanyService;
 import org.springframework.stereotype.Service;
@@ -20,7 +20,7 @@ public class AirCompanyServiceImpl implements AirCompanyService {
     }
 
     public AirCompany get(Long id) {
-        return airCompanyRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Air company not found by id = ", id));
+        return airCompanyRepository.findById(id).orElseThrow(() -> new AirCompanyNotFoundException(id));
     }
 
     @Override
@@ -47,19 +47,17 @@ public class AirCompanyServiceImpl implements AirCompanyService {
                     airCompany.setFoundedAt(updatedCompany.getFoundedAt());
                     return airCompanyRepository.save(airCompany);
                 })
-                .orElseGet(() -> {
-                    updatedCompany.setCompanyId(id);
-                    return airCompanyRepository.save(updatedCompany);
-                });
+                .orElseThrow(() -> new AirCompanyNotFoundException(id));
     }
 
 
     @Override
     public List<Flight> findFlightsByStatus(String name, FlightStatus status) {
-        AirCompany company = airCompanyRepository.findByName(name).orElseThrow(() -> new RuntimeException());
+        AirCompany company = airCompanyRepository.findByName(name)
+                .orElseThrow(() -> new AirCompanyNotFoundException(name));
 
         return company.getFlights().stream()
-                .filter((flight) -> flight.getFlightStatus().equals(status))
+                .filter(flight -> flight.getFlightStatus().equals(status))
                 .collect(Collectors.toList());
 
     }

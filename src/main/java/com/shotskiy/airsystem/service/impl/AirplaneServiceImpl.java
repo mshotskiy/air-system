@@ -1,10 +1,10 @@
 package com.shotskiy.airsystem.service.impl;
 
-import com.shotskiy.airsystem.entity.Airplane;
-import com.shotskiy.airsystem.service.AirCompanyService;
 import com.shotskiy.airsystem.entity.AirCompany;
-import com.shotskiy.airsystem.exception.ResourceNotFoundException;
+import com.shotskiy.airsystem.entity.Airplane;
+import com.shotskiy.airsystem.exception.AirplaneNotFoundException;
 import com.shotskiy.airsystem.repository.AirplaneRepository;
+import com.shotskiy.airsystem.service.AirCompanyService;
 import com.shotskiy.airsystem.service.AirplaneService;
 import org.springframework.stereotype.Service;
 
@@ -23,7 +23,7 @@ public class AirplaneServiceImpl implements AirplaneService {
     @Override
     public Airplane get(Long id) {
         return airplaneRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Airplane not found by id = ", id));
+                .orElseThrow(() -> new AirplaneNotFoundException(id));
     }
 
     @Override
@@ -33,8 +33,6 @@ public class AirplaneServiceImpl implements AirplaneService {
 
     @Override
     public Airplane save(Airplane newAirplane) {
-        AirCompany parentCompany = airCompanyService.get(newAirplane.getAirCompany().getCompanyId());
-        newAirplane.setAirCompany(parentCompany);
         return airplaneRepository.save(newAirplane);
     }
 
@@ -60,12 +58,13 @@ public class AirplaneServiceImpl implements AirplaneService {
                     airplane.setCreatedAt(updatedAirplane.getCreatedAt());
                     return airplaneRepository.save(airplane);
                 })
-                .orElseThrow(() -> new RuntimeException());
+                .orElseThrow(() -> new AirplaneNotFoundException(id));
     }
 
     @Override
     public Airplane changeCompany(AirCompany airCompany, Long id) {
-        Airplane airplane = airplaneRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Airplane not found by id = ", id));
+        Airplane airplane = airplaneRepository.findById(id)
+                .orElseThrow(() -> new AirplaneNotFoundException(id));
         Long oldCompanyId = airplane.getAirCompany().getCompanyId();
         Long newCompanyId = airCompany.getCompanyId();
 

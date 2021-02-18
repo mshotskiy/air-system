@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 
@@ -17,13 +17,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode
-public class AirCompany{
-
-    public AirCompany(String name, String companyType, Date foundedAt) {
-        this.name = name;
-        this.companyType = companyType;
-        this.foundedAt = foundedAt;
-    }
+public class AirCompany {
 
     @Id
     @Column(name = "company_id")
@@ -36,16 +30,16 @@ public class AirCompany{
     private String companyType;
 
     @Column(name = "founded_at")
-    private Date foundedAt;
+    private LocalDate foundedAt;
 
     @OneToMany(mappedBy = "airCompany", fetch = FetchType.LAZY)
     @JsonIgnoreProperties("airCompany")
     private List<Airplane> airplanes;
 
-
     @OneToMany(mappedBy = "airCompany", fetch = FetchType.LAZY)
     @JsonIgnoreProperties("airCompany")
     private List<Flight> flights;
+
 
     @Override
     public String toString() {

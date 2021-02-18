@@ -1,5 +1,6 @@
 package com.shotskiy.airsystem.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.shotskiy.airsystem.model.FlightStatus;
 import lombok.EqualsAndHashCode;
@@ -47,15 +48,19 @@ public class Flight {
     private String estimatedFlightTime;
 
     @Column(name = "ended_at")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private Date endedAt;
 
     @Column(name = "delay_started_at")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private Date delayStartedAt;
 
     @Column(name = "created_at")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createdAt;
 
     @Column(name = "started_at")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private Date startedAt;
 
 }
