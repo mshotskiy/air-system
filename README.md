@@ -27,4 +27,10 @@ And use command
 Then the project starts to run
 (During startup, there may be exceptions for connecting to the database, this is normal, wait until the database is created and everything will work)
 
+Then you can access the application in the path 
+> http://localhost:8094
+
+Also in the root of the project there is a postman collection file with all checkpoints
+> AirSystem.postman_collection.json
+
 
