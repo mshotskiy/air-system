@@ -3,6 +3,7 @@ package com.shotskiy.airsystem.service.impl;
 import com.shotskiy.airsystem.entity.AirCompany;
 import com.shotskiy.airsystem.entity.Airplane;
 import com.shotskiy.airsystem.entity.Flight;
+import com.shotskiy.airsystem.exception.FlightNotFoundException;
 import com.shotskiy.airsystem.model.FlightDateOnly;
 import com.shotskiy.airsystem.model.FlightStatus;
 import com.shotskiy.airsystem.repository.FlightRepository;
@@ -11,9 +12,6 @@ import com.shotskiy.airsystem.service.AirplaneService;
 import com.shotskiy.airsystem.service.FlightService;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -35,11 +33,10 @@ public class FlightServiceImpl implements FlightService {
         return flightRepository.findAll();
     }
 
-    //TODO
     @Override
     public Flight get(Long id) {
         return flightRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Flight not found by id ="));
+                .orElseThrow(() -> new FlightNotFoundException(id));
     }
 
     @Override
@@ -57,7 +54,6 @@ public class FlightServiceImpl implements FlightService {
         flightRepository.deleteById(id);
     }
 
-    //TODO
     @Override
     public Flight update(Flight updatedFlight, Long id) {
         return flightRepository.findById(id)
@@ -79,7 +75,7 @@ public class FlightServiceImpl implements FlightService {
                         flight.setAirPlane(airplaneService.get(airplaneId));
                     }
                     return flightRepository.save(flight);
-                }).orElseThrow(() -> new RuntimeException("Flight not found by id ="));
+                }).orElseThrow(() -> new FlightNotFoundException(id));
 
     }
 
@@ -87,7 +83,7 @@ public class FlightServiceImpl implements FlightService {
     public List<Flight> getLongActiveFlights() {
         List<Flight> flights = flightRepository.findAllActive();
         flights = flights.stream()
-                .filter((flight) -> isMoreThanDay(new Date(), flight.getStartedAt()))
+                .filter(flight -> isMoreThanDay(new Date(), flight.getStartedAt()))
                 .collect(Collectors.toList());
         return flights;
     }
@@ -119,7 +115,7 @@ public class FlightServiceImpl implements FlightService {
     public Flight setCompletedStatus(Long id, FlightDateOnly flightDateOnly) {
         Flight flight = get(id);
         flight.setFlightStatus(FlightStatus.COMPLETED);
-        Date ended = flightDateOnly.getStarted();
+        Date ended = flightDateOnly.getEnded();
         if (ended == null) {
             ended = new Date();
         }
@@ -136,14 +132,9 @@ public class FlightServiceImpl implements FlightService {
         return flights;
     }
 
-    //todo norm exep
     private boolean isMoreThanEstimated(String estimatedTime, Date startTime, Date endTime) {
         long flightDuration = endTime.getTime() - startTime.getTime();
         String[] time = estimatedTime.split(":");
-
-        if (time.length != 3) {
-            throw new RuntimeException();
-        }
 
         long estimatedMills = 0;
         long hourInMills = 60L * 60L * 1000L;

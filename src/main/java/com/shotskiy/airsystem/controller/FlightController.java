@@ -5,14 +5,12 @@ import com.shotskiy.airsystem.entity.Flight;
 import com.shotskiy.airsystem.model.FlightDateOnly;
 import com.shotskiy.airsystem.service.FlightService;
 import com.shotskiy.airsystem.util.FlightModelAssembler;
-import org.springframework.boot.context.properties.bind.DefaultValue;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.IanaLinkRelations;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 

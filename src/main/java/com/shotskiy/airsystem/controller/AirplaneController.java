@@ -1,9 +1,9 @@
 package com.shotskiy.airsystem.controller;
 
-import com.shotskiy.airsystem.entity.Airplane;
-import com.shotskiy.airsystem.util.AirplaneModelAssembler;
 import com.shotskiy.airsystem.entity.AirCompany;
+import com.shotskiy.airsystem.entity.Airplane;
 import com.shotskiy.airsystem.service.AirplaneService;
+import com.shotskiy.airsystem.util.AirplaneModelAssembler;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.IanaLinkRelations;
@@ -28,12 +28,12 @@ public class AirplaneController {
     }
 
     @GetMapping("/{id}")
-    public EntityModel<Airplane> find(@PathVariable Long id){
+    public EntityModel<Airplane> find(@PathVariable Long id) {
         return airplaneModelAssembler.toModel(airplaneService.get(id));
     }
 
     @GetMapping
-    public CollectionModel<EntityModel<Airplane>> findAll(){
+    public CollectionModel<EntityModel<Airplane>> findAll() {
         List<EntityModel<Airplane>> airplanes = airplaneService.getAll().stream()
                 .map(airplaneModelAssembler::toModel)
                 .collect(Collectors.toList());
@@ -43,8 +43,8 @@ public class AirplaneController {
 
 
     @PostMapping("/")
-    public ResponseEntity<?> add(@RequestBody Airplane airplane){
-        EntityModel<Airplane>  airplaneEntityModel = airplaneModelAssembler
+    public ResponseEntity<?> add(@RequestBody Airplane airplane) {
+        EntityModel<Airplane> airplaneEntityModel = airplaneModelAssembler
                 .toModel(airplaneService.save(airplane));
 
         return ResponseEntity
@@ -53,24 +53,23 @@ public class AirplaneController {
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<?> update(@RequestBody Airplane airplane, @PathVariable Long id){
+    public ResponseEntity<?> update(@RequestBody Airplane airplane, @PathVariable Long id) {
         EntityModel<Airplane> airplaneModel = airplaneModelAssembler.toModel(airplaneService.update(airplane, id));
+
         return ResponseEntity
                 .created(airplaneModel.getRequiredLink(IanaLinkRelations.SELF).toUri())
                 .body(airplaneModel);
-
-
     }
 
     @DeleteMapping("{id}")
-    public ResponseEntity<?> delete(@PathVariable Long id){
+    public ResponseEntity<?> delete(@PathVariable Long id) {
         airplaneService.deleteById(id);
         return ResponseEntity.noContent().build();
     }
 
     @PatchMapping("{id}/airCompany")
-    public ResponseEntity<?> moveAirplane(@RequestBody AirCompany airCompany, @PathVariable Long id){
-        EntityModel<Airplane> airplaneModel= airplaneModelAssembler
+    public ResponseEntity<?> moveAirplane(@RequestBody AirCompany airCompany, @PathVariable Long id) {
+        EntityModel<Airplane> airplaneModel = airplaneModelAssembler
                 .toModel(airplaneService.changeCompany(airCompany, id));
 
         return ResponseEntity

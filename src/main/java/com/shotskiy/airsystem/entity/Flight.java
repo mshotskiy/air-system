@@ -28,7 +28,7 @@ public class Flight {
 
     @ManyToOne
     @JoinColumn(name = "air_company_id")
-    @JsonIgnoreProperties({"flights","airplanes"})
+    @JsonIgnoreProperties({"flights", "airplanes"})
     private AirCompany airCompany;
 
     @ManyToOne

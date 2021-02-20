@@ -1,7 +1,7 @@
 package com.shotskiy.airsystem.util;
 
-import com.shotskiy.airsystem.entity.Airplane;
 import com.shotskiy.airsystem.controller.AirplaneController;
+import com.shotskiy.airsystem.entity.Airplane;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.RepresentationModelAssembler;
 import org.springframework.stereotype.Service;

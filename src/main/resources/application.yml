@@ -1,9 +1,17 @@
+server:
+  port: ${PORT:8091}
 spring:
   datasource:
     driverClassName: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/air_company?serverTimezone=UTC&useUnicode=yes&characterEncoding=UTF-8
+    url: ${SPRING_DATASOURCE_URL:jdbc:mysql://localhost:3308/airsystem?serverTimezone=UTC&useUnicode=yes&characterEncoding=UTF-8}
     username: root
-    password: 123456
+    password: qqq
+
+  liquibase:
+    enabled: true
+    change-log: classpath:db/changelog/db.changelog-master.yaml
+    contexts: dev
+
 
   jpa:
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
@@ -11,5 +19,4 @@ spring:
       hibernate:
         current_session_context_class: org.springframework.orm.hibernate5.SpringSessionContext
         dialect: org.hibernate.dialect.MySQL5Dialect
-        format-sql: true
-    show-sql: true
+

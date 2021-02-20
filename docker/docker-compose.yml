@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  mysql:
+    ports:
+      - 3324:3306
+    restart: always
+    build:
+      context: services/mysql
+      dockerfile: Dockerfile.development
+    environment:
+      - MYSQL_ROOT_PASSWORD=qqq
+      - MYSQL_DATABASE=air_company
+      - MYSQL_USER=root
+    volumes:
+      - "/media/windows-shar/var/lib/mysql/data"
+
+  app:
+    restart: on-failure
+    build:
+      context: services/app
+      dockerfile: Dockerfile.development
+    environment:
+      - PORT=8094
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/air_company
+      - JS_URL=http://localhost
+    image: 'my-java-application'
+    ports:
+      - 8094:8094
+    depends_on:
+      - mysql
+    links:
+      - mysql
+
+
+
+
+
