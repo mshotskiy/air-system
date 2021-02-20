@@ -1,0 +1,647 @@
+{
+	"info": {
+		"_postman_id": "45a9463f-4b51-4938-81d5-e177e41ea461",
+		"name": "AirSystem",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Air company",
+			"item": [
+				{
+					"name": "find all air companies",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8094/company/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8094",
+							"path": [
+								"company",
+								""
+							]
+						},
+						"description": "Method returns all air companies"
+					},
+					"response": []
+				},
+				{
+					"name": "find company by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8094/company/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8094",
+							"path": [
+								"company",
+								"1"
+							]
+						},
+						"description": "Method returns company by id\r\nformat request: http://localhost:8080/company/{id}\r\nwhere:\r\nid - id of company"
+					},
+					"response": []
+				},
+				{
+					"name": "add company",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Quantas Airways\",\r\n    \"companyType\": \"charter\",\r\n    \"foundedAt\": \"2019-10-10\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8094/company/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8094",
+							"path": [
+								"company",
+								""
+							]
+						},
+						"description": "method adds a new company\r\nit must have a json body :\r\n\r\n{\r\n    \"name\": \"example\",  //string field a name of company\r\n    \"companyType\": \"st\", //string field a type of company\r\n    \"foundedAt\": \"2005-12-10\" // date field format \"yyyy-mm-dd\"\r\n}"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete air company",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8094/company/5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8094",
+							"path": [
+								"company",
+								"5"
+							]
+						},
+						"description": "Method deletes company by id\r\nformat request: http://localhost:8080/company/{id}\r\nwhere:\r\nid - id of company"
+					},
+					"response": [
+						{
+							"name": "http://localhost:8080/company/add",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"companyId\": 4,\r\n    \"name\":\"lol\",\r\n    \"companyType\": \"st\",\r\n    \"foundedAt\": \"2005-12-10\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/company/delete",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"company",
+										"delete"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Content-Length",
+									"value": "0"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 15 Feb 2021 10:46:24 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "update air company",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Quantas Airways\",\r\n    \"companyType\": \"charter\",\r\n    \"foundedAt\": \"2012-11-12\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8094/company/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8094",
+							"path": [
+								"company",
+								"3"
+							]
+						},
+						"description": "method updates a chosen company by id\r\nformat request http://localhost:8080/company/{id}\r\nwhere: id - id of company\r\nit must have a json body:\r\n{\r\n    \"name\": \"example\",  //string field a name of company\r\n    \"companyType\": \"st\", //string field a type of company\r\n    \"foundedAt\": \"2005-12-10\" // date field format \"yyyy-mm-dd\"\r\n}"
+					},
+					"response": []
+				},
+				{
+					"name": "find flights from aircompany",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8094/company/Travor Phillips Industries Inc/flights?status=ACTIVE",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8094",
+							"path": [
+								"company",
+								"Travor Phillips Industries Inc",
+								"flights"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "ACTIVE"
+								}
+							]
+						},
+						"description": "Endpoint to find all Air Company Flights by status company name used for identification of Air Company\r\nRequest format :\r\nhttp://localhost:8080/company/{company name}/flights?status={STATUS}\r\nwhere:\r\ncompany name - name of company\r\nSTATUS - is a status of flights must be UPPERCASE"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Airplane",
+			"item": [
+				{
+					"name": "Find all airplane",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8094/airplane/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8094",
+							"path": [
+								"airplane",
+								""
+							]
+						},
+						"description": "Method returns all airplanes"
+					},
+					"response": []
+				},
+				{
+					"name": "find plane by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8094/airplane/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8094",
+							"path": [
+								"airplane",
+								"1"
+							]
+						},
+						"description": "Method returns airplane by id\r\nformat request: http://localhost:8080/airplane/{id}\r\nwhere:\r\nid - id of airplane"
+					},
+					"response": []
+				},
+				{
+					"name": "add aiplane",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "    {\r\n        \"name\": \"Antonov An-38\",\r\n        \"factorySerialNumber\": \"FA3X85D2\",\r\n        \"airCompany\": {\r\n            \"companyId\": 3\r\n        },\r\n        \"numberOfFlights\": 0,\r\n        \"flightDistance\": 0,\r\n        \"fuelCapacity\": 125000,\r\n        \"type\": \"passangers\",\r\n        \"createdAt\": \"2017-07-11\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8094/airplane/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8094",
+							"path": [
+								"airplane",
+								""
+							]
+						},
+						"description": "method adds a new airplane\r\nit must have a json body :\r\n\r\n{\r\n    \"name\": \"Mriya\", //string field \r\n    \"factorySerialNumber\": \"ZFR2XDOD212\", //string field \r\n    \"airCompany\": { // its object of air company \r\n            \"companyId\": 2 //id air company\r\n        },\r\n    \"numberOfFlights\": 0, //integer field\r\n    \"flightDistance\": 1200, //long field\r\n    \"fuelCapacity\": 120000,//integer field\r\n    \"type\": \"passangers\", //string field \r\n    \"createdAt\": \"2014-03-11\" // date field format \"yyyy-mm-dd\"\r\n}"
+					},
+					"response": []
+				},
+				{
+					"name": "delete airplane",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"airplaneId\": 2,\r\n        \"name\": \"Ant\",\r\n        \"factorySerialNumber\": \"ARF120203\",\r\n        \"airCompany\":{\r\n            \"companyId\": 1,\r\n            \"name\": \"Travor Phillips Industries\",\r\n            \"companyType\": \"charter\",\r\n            \"foundedAt\": \"2012-11-12\"\r\n        },\r\n        \"numberOfFlights\": 1,\r\n        \"flightDistance\": 1200,\r\n        \"fuelCapacity\": 120000,\r\n        \"type\": \"passangers\",\r\n        \"createdAt\": \"2016-03-11\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8094/airplane/4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8094",
+							"path": [
+								"airplane",
+								"4"
+							]
+						},
+						"description": "Method deletes airplane by id\r\nformat request: http://localhost:8080/airplane/{id}\r\nwhere:\r\nid - id of airplane"
+					},
+					"response": []
+				},
+				{
+					"name": "update full airplane",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"name\": \"Airbus A310\",\r\n        \"factorySerialNumber\": \"ARF120203111AZZ\",\r\n        \"airCompany\": { \r\n            \"companyId\": 1 \r\n        },\r\n        \"numberOfFlights\": 0,\r\n        \"flightDistance\": 0,\r\n        \"fuelCapacity\": 120000,\r\n        \"type\": \"passangers\",\r\n        \"createdAt\": \"2016-03-11\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8094/airplane/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8094",
+							"path": [
+								"airplane",
+								"3"
+							]
+						},
+						"description": "method updates a chosen airplane by id\r\nformat request http://localhost:8080/airplane/{id}\r\nwhere: id - id of airplane\r\nit must have a json :\r\n{\r\n    \"name\": \"Mriya\", //string field \r\n    \"factorySerialNumber\": \"ZFR2XDOD212\", //string field \r\n    \"airCompany\": { // its object of air company \r\n            \"companyId\": 2 //id air company\r\n        },\r\n    \"numberOfFlights\": 0, //integer field\r\n    \"flightDistance\": 1200, //long field\r\n    \"fuelCapacity\": 120000,//integer field\r\n    \"type\": \"passangers\", //string field \r\n    \"createdAt\": \"2014-03-11\" // date field format \"yyyy-mm-dd\"\r\n}"
+					},
+					"response": []
+				},
+				{
+					"name": "Move airplane between company",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"companyId\": 2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8094/airplane/3/airCompany",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8094",
+							"path": [
+								"airplane",
+								"3",
+								"airCompany"
+							]
+						},
+						"description": "Endpoint to move airplanes between companies\r\nformat request: http://localhost:8080/airplane/{id}/airCompany\r\nwhere:\r\nid - id of airplane\r\nit must have a json body :\r\n{\r\n    \"companyId\": 1 // Long field is a new id of company\r\n}"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Flight",
+			"item": [
+				{
+					"name": "find all flights",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8094/flight/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8094",
+							"path": [
+								"flight",
+								""
+							]
+						},
+						"description": "Method returns all flights"
+					},
+					"response": []
+				},
+				{
+					"name": "find flight by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8094/flight/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8094",
+							"path": [
+								"flight",
+								"3"
+							]
+						},
+						"description": "Method returns flight by id\r\nformat request: http://localhost:8080/flight/{id}\r\nwhere:\r\nid - id of flight"
+					},
+					"response": []
+				},
+				{
+					"name": "add flight",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"airCompany\": {\r\n        \"companyId\": 3 \r\n    },\r\n    \"airPlane\": {\r\n        \"airplaneId\": 8\r\n    },\r\n    \"departureCountry\": \"Lviv\",\r\n    \"destinationCountry\": \"Berlin\",\r\n    \"distance\": 310,\r\n    \"estimatedFlightTime\": \"2:10:00\",\r\n    \"createdAt\": \"2021-02-20 13:10:00\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8094/flight",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8094",
+							"path": [
+								"flight"
+							]
+						},
+						"description": "method adds a new flight\r\nit must have a json body :\r\n\r\n{\r\n    \"airCompany\": { // its object of air company \r\n        \"companyId\": 2 //id air company\r\n    },\r\n    \"airPlane\": { // its object of airpalne\r\n        \"airplaneId\": 5 //id airplane\r\n    },\r\n    \"departureCountry\": \"Kiev\", //string field \r\n    \"destinationCountry\": \"Berlin\", //string field \r\n    \"distance\": 500, //integer field \r\n    \"estimatedFlightTime\": \"21:20:10\", // estimated flight time format : \"HH-mm-ss\"\r\n    \"createdAt\": \"2021-02-17 10:10:10\" //created flight time format \"yyyy-MM-dd HH:mm:sss\"\r\n}"
+					},
+					"response": []
+				},
+				{
+					"name": "delete by id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8094/flight/4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8094",
+							"path": [
+								"flight",
+								"4"
+							]
+						},
+						"description": "Method deletes flight by id\r\nformat request: http://localhost:8080/flight/{id}\r\nwhere:\r\nid - id of flight"
+					},
+					"response": []
+				},
+				{
+					"name": "update full flight",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"flightStatus\": \"COMPLETED\",\r\n    \"airCompany\": {\r\n        \"companyId\": 1\r\n    },\r\n    \"airPlane\": {\r\n        \"airplaneId\": 1\r\n    },\r\n    \"departureCountry\": \"Kiev\",\r\n    \"destinationCountry\": \"Berlin\",\r\n    \"distance\": 400,\r\n    \"estimatedFlightTime\": \"03:10:10\",\r\n    \"endedAt\": \"2021-02-19 18:00:00\",\r\n    \"delayStartedAt\": null,\r\n    \"createdAt\": \"2021-02-20 10:56:15\",\r\n    \"startedAt\": \"2021-02-18 15:00:36\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8094/flight/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8094",
+							"path": [
+								"flight",
+								"1"
+							]
+						},
+						"description": "method updates a chosen flight by id\r\nformat request http://localhost:8080/flight/{id}\r\nwhere: id - id of flight\r\nit must have a json body may not have any of the fields:\r\n{\r\n    \"flightStatus\": \"PENDING\",\r\n    \"airCompany\": { // its object of air company \r\n        \"companyId\": 2 //id air company\r\n    },\r\n    \"airPlane\": { // its object of airpalne\r\n        \"airplaneId\": 5 //id airplane\r\n    },\r\n    \"departureCountry\": \"Kiev\", //string field \r\n    \"destinationCountry\": \"Berlin\", //string field \r\n    \"distance\": 500, //integer field \r\n    \"estimatedFlightTime\": \"21:20:10\", // estimated flight time, format : \"HH-mm-ss\"\r\n    \"startedAt\": \"2021-02-17 10:10:10\" //started flight at time, format \"yyyy-MM-dd HH:mm:sss\"\r\n    \"endedAt\": \"2021-02-17 10:10:10\" //ended flight at time, format \"yyyy-MM-dd HH:mm:sss\"\r\n    \"delayStartedAt\": \"2021-02-17 10:10:10\" //delayed flight at time, format \"yyyy-MM-dd HH:mm:sss\"\r\n    \"createdAt\": \"2021-02-17 10:10:10\" //created flight time, format \"yyyy-MM-dd HH:mm:sss\"\r\n}"
+					},
+					"response": []
+				},
+				{
+					"name": "find long active flights",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8094/flight/longActive",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8094",
+							"path": [
+								"flight",
+								"longActive"
+							]
+						},
+						"description": "Endpoint to find all Flights in ACTIVE status and started more than 24 hours ago."
+					},
+					"response": []
+				},
+				{
+					"name": "set delayed status",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"started\": \"2021-02-19 8:00:36\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8094/flight/10/delayed",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8094",
+							"path": [
+								"flight",
+								"10",
+								"delayed"
+							]
+						},
+						"description": "Endpoint to change Flight status on DELAYED and set delay started at\r\n\r\nhttp://localhost:8080/flight/{id}/delayed\r\nwhere:\r\nid - id of flight\r\n\r\nit must have a json body may not have any of the fields:\r\n{\r\n    \"started\": \"2021-02-18 14:00:36\" //delayed flight at time, format \"yyyy-MM-dd HH:mm:sss\"\r\n}"
+					},
+					"response": []
+				},
+				{
+					"name": "set active flight",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"started\": \"2021-02-19 21:00:36\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8094/flight/10/active",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8094",
+							"path": [
+								"flight",
+								"10",
+								"active"
+							]
+						},
+						"description": "Endpoint to change Flight status on ACTIVE and set started at\r\n\r\nhttp://localhost:8080/flight/{id}/active\r\nwhere:\r\nid - id of flight\r\n\r\nit must have a json body may not have any of the fields:\r\n{\r\n    \"started\": \"2021-02-18 14:00:36\" //started flight at time, format \"yyyy-MM-dd HH:mm:sss\"\r\n}"
+					},
+					"response": []
+				},
+				{
+					"name": "set completed date",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"ended\": \"2021-02-10 06:00:00\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8094/flight/10/completed",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8094",
+							"path": [
+								"flight",
+								"10",
+								"completed"
+							]
+						},
+						"description": "Endpoint to change Flight status on COMPLETED and set delay started at\r\n\r\nhttp://localhost:8080/flight/{id}/completed\r\nwhere:\r\nid - id of flight\r\n\r\nit must have a json body may not have any of the fields:\r\n{\r\n    \"started\": \"2021-02-18 14:00:36\" //completed flight at time, format \"yyyy-MM-dd HH:mm:sss\"\r\n}"
+					},
+					"response": []
+				},
+				{
+					"name": "find all late flights",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8094/flight/late",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8094",
+							"path": [
+								"flight",
+								"late"
+							]
+						},
+						"description": "Endpoint to find all Flights in COMPLETED status and difference between\r\nstarted and ended time is bigger than estimated flight time."
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
